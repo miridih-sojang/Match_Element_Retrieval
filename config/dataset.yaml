@@ -1,0 +1,42 @@
+seed_number: 19941201
+path:
+  base_read_csv_path: '/opt/preprocessing_data_storage/csv'
+  base_read_image_path: '/opt/preprocessing_data_storage/images'
+
+use_csv_file_list:
+  - '20240625_125_134.csv'
+  - '20240625_117_124.csv'
+  - '20240618.csv'
+  - '20240621.csv'
+
+dataset_unique_key:
+  - 'template_idx'
+  - 'page_num'
+
+dataset_filter_crisis:
+  element:
+    min_width: 5
+    min_height: 5
+  template:
+    use_element_min_count: 4
+    use_element_max_count: 49
+  rendering:
+    min_width: 1
+    min_height: 1
+
+use_columns:
+  - 'template_idx'
+  - 'page_num'
+  - 'super_template_type'
+  - 'img_width_resized'
+  - 'img_height_resized'
+  - 'resourceKey'
+  - 'left'
+  - 'top'
+  - 'img_width'
+  - 'img_height'
+  - 'priority'
+  - 'reformat_image_file_name'
+  - 'save_path'
+  - 'keywords'
+  - 'tag'
