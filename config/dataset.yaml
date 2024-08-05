@@ -1,4 +1,3 @@
-seed_number: 19941201
 path:
   base_read_csv_path: '/opt/preprocessing_data_storage/csv'
   base_read_image_path: '/opt/preprocessing_data_storage/images'

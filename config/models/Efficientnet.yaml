@@ -1,0 +1,10 @@
+model_name_or_path: 'google/efficientnet-b4'
+config_name: None
+image_processor_name: None
+cache_dir: None
+model_revision: 'main'
+use_fast_tokenizer: True
+token: None
+trust_remote_code: False
+freeze_vision_model: False
+logit_scale_init_value: 2.6592
