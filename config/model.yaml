@@ -1,12 +1,13 @@
+seed_number: 19941201
 path:
   base_read_csv_path: '/opt/preprocessing_data_storage/csv'
   base_read_image_path: '/opt/preprocessing_data_storage/images'
 
 use_csv_file_list:
   - '20240625_125_134.csv'
-#  - '20240625_117_124.csv'
-#  - '20240618.csv'
-#  - '20240621.csv'
+  - '20240625_117_124.csv'
+  - '20240618.csv'
+  - '20240621.csv'
 
 dataset_unique_key:
   - 'template_idx'
@@ -22,9 +23,6 @@ dataset_filter_crisis:
   rendering:
     min_width: 1
     min_height: 1
-
-search:
-  min_word_count: 5
 
 use_columns:
   - 'template_idx'

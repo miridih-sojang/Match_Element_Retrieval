@@ -27,6 +27,8 @@ class MatchElementDataset(BaseDataset):
         for csv_name in self.dataset_config['use_csv_file_list']:
             temporal_df = pd.read_csv(f'{self.dataset_config["path"]["base_read_csv_path"]}/total/{csv_name}',
                                       low_memory=False)
+            temporal_df.loc[~temporal_df.keywords.isin(['Unknown', 'Skin_Images']), 'keywords'] = temporal_df.loc[
+                ~temporal_df.keywords.isin(['Unknown', 'Skin_Images'])].keywords.str.split('|')
             df_list.append(temporal_df)
         df = pd.concat(df_list, ignore_index=True)
         unique_elements_df = self.calculate_resolution(df)
@@ -41,8 +43,9 @@ class MatchElementDataset(BaseDataset):
         # try:
         template_idx, page_num = self.filter_key_list[idx]
         instance_df = self.df[(self.df.template_idx == template_idx) & (self.df.page_num == page_num)]
-        rendering_image, y_image = online_rendering(self.dataset_config['path']['base_read_image_path'], instance_df,
-                                                    self.training_config['train']['data_augmentation'])
+        rendering_image, y_image, _, _ = online_rendering(self.dataset_config['path']['base_read_image_path'], instance_df,
+                                                       self.training_config['train']['data_augmentation'],
+                                                       self.element_df)
         rendering_image, y_image = rendering_image.convert('RGB'), y_image.convert('RGB')
         # rendering_image = rendering_image.resize((500, 500))
         # y_image = y_image.resize((500, 500))
@@ -137,4 +140,6 @@ class MatchElementDataset(BaseDataset):
                 not_useful_images_list.append(f'{template_idx}**{page_num}')
         df['name'] = df['template_idx'].astype(str) + '**' + df['page_num'].astype(str)
         df = df[~df.name.isin(not_useful_images_list)]
+        df.drop(columns=['name'], inplace=True)
+        df.reset_index(inplace=True, drop=True)
         return df

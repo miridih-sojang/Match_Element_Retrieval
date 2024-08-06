@@ -56,6 +56,9 @@ def main():
     test_dataloader = DataLoader(test_dataset, batch_size=training_config['test']['batch_size'],
                                  num_workers=training_config['test']['batch_size'], shuffle=False, drop_last=False)
 
+    from search import KeywordBasedSearch
+    search_model = KeywordBasedSearch(dataset_config, test_dataloader.dataset.df, test_dataloader.dataset.element_df)
+    exit()
     # from PIL import Image
     # for iteration, batch in enumerate(tqdm(test_dataloader, total=len(test_dataloader))):
     #     rendering_image, template_idx, page_num, y_image = batch['rendering_image'], batch['template_idx'], batch['page_num'], batch['y_image']

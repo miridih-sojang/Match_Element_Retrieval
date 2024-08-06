@@ -4,6 +4,7 @@ import torch
 class ClipLoss(torch.nn.Module):
     def __init__(self):
         super(ClipLoss, self).__init__()
+
     @staticmethod
     def contrastive_loss(logits):
         return torch.nn.functional.cross_entropy(logits, torch.arange(len(logits), device=logits.device))

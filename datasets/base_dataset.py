@@ -17,8 +17,11 @@ class BaseDataset(torch.utils.data.Dataset):
     def read_csv(self):
         df_list = []
         for csv_name in self.dataset_config['use_csv_file_list']:
-            temporal_df = pd.read_csv(f'{self.dataset_config["path"]["base_read_csv_path"]}/{self.data_type}/{csv_name}',
-                                      low_memory=False)
+            temporal_df = pd.read_csv(
+                f'{self.dataset_config["path"]["base_read_csv_path"]}/{self.data_type}/{csv_name}',
+                low_memory=False)
+            temporal_df.loc[~temporal_df.keywords.isin(['Unknown', 'Skin_Images']), 'keywords'] = temporal_df.loc[
+                ~temporal_df.keywords.isin(['Unknown', 'Skin_Images'])].keywords.str.split('|')
             df_list.append(temporal_df)
         df = pd.concat(df_list, ignore_index=True)
         df = df[self.dataset_config['use_columns']]
